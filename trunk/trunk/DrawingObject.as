@@ -24,6 +24,8 @@ package
 		public var time:Number = 0;
 		private var cuePt:Object = new Object();
 		
+		public var color:uint = 0xff0000;
+		
 		private var i:int;
 
 		public function DrawingObject (obj : Object, s:Object) : void
@@ -112,7 +114,7 @@ package
 					
 					//trace(getChildren()[getLastChildIndex()]);
 					
-					drawingSprite.graphics.lineStyle (2, 0xff0000);
+					drawingSprite.graphics.lineStyle (2, color);
 					drawingSprite.graphics.lineTo (x, y);
 				}
 				else
@@ -126,7 +128,7 @@ package
 		private function drawInSprite (event : MouseEvent) : void
 		{
 			var drawingSprite : Sprite = getChildren ()[getLastChildIndex ()];
-			drawingSprite.graphics.lineStyle (2, 0xff0000);
+			drawingSprite.graphics.lineStyle (2, color);
 			drawingSprite.graphics.lineTo (Math.round(mouseX*1000) * .001, Math.round(mouseY*1000) * .001);
 
 			 //create cue point object
@@ -136,7 +138,7 @@ package
 				cuePt.xpos = Math.round(mouseX*1000) * .001;
 				cuePt.ypos = Math.round(mouseY*1000) * .001;
 				cuePt.fx = "null";
-				trace("xpos(after):",cuePt.xpos, " xpos(before):", mouseX);
+				//trace("xpos(after):",cuePt.xpos, " xpos(before):", mouseX);
 				
 			//caller.addCuePoint(cuePt);
 			caller.addCuePoint(cuePt);
