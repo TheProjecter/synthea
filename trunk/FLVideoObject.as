@@ -180,5 +180,20 @@
 		{
 			return fl.playheadPercentage;
 		}
+		
+		public function getTotalTime():Number
+		{
+			return fl.totalTime;
+		}
+		
+		public function getName():String
+		{
+			return this.name;
+		}
+		
+		public function setColor(c:uint):void
+		{
+			drawingObj.color = c;
+		}
 	}
  }
