@@ -44,11 +44,11 @@ package
 		{
 			obj.removeEventListener (MouseEvent.MOUSE_MOVE, drawInSprite);
 			
-				cuePt.time = (getTimer()-caller.timeOffset)/1000;
+				cuePt.time = (getTimer()-caller.timeOffset) * .001;
 				cuePt.name = "CP_" + cuePt.time;
 				cuePt.type = "actionscript";
-				cuePt.xpos = Math.round(mouseX*1000)/1000;
-				cuePt.ypos = Math.round(mouseY*1000)/1000;
+				cuePt.xpos = Math.round(mouseX*1000) * .001;
+				cuePt.ypos = Math.round(mouseY*1000) * .001;
 				cuePt.fx = "end";
 				
 			caller.addCuePoint(cuePt);
@@ -72,11 +72,11 @@ package
 			
 			xmlObj.addSegment();
 			
-				cuePt.time = (getTimer()-caller.timeOffset)/1000;
+				cuePt.time = (getTimer()-caller.timeOffset) * .001;
 				cuePt.name = "CP_" + cuePt.time;
 				cuePt.type = "actionscript";
-				cuePt.xpos = Math.round(mouseX*1000)/1000;
-				cuePt.ypos = Math.round(mouseY*1000)/1000;
+				cuePt.xpos = Math.round(mouseX*1000) * .001;
+				cuePt.ypos = Math.round(mouseY*1000) * .001;
 				cuePt.fx = "begin";
 				
 				caller.addCuePoint(cuePt);
@@ -85,7 +85,7 @@ package
 		public function autoDraw(fx:String, x:Number, y:Number, time:Number):void
 		{
 			//trace("fx:" + fx + " x:" + x + " y:" + y + " t:" + time);
-			trace(time);
+			//trace(time);
 			if(fx == "begin")
 			{
 				var sprite : Sprite = new Sprite ();
@@ -94,7 +94,7 @@ package
 				sprite.y = 0;
 				sprite.cacheAsBitmap = true;
 				
-				sprite.graphics.moveTo (x, y);
+				sprite.graphics.moveTo(x, y);
 				
 				addChild (sprite);
 				
@@ -127,20 +127,21 @@ package
 		{
 			var drawingSprite : Sprite = getChildren ()[getLastChildIndex ()];
 			drawingSprite.graphics.lineStyle (2, 0xff0000);
-			drawingSprite.graphics.lineTo (Math.round(mouseX*1000)/1000, Math.round(mouseY*1000)/1000);
+			drawingSprite.graphics.lineTo (Math.round(mouseX*1000) * .001, Math.round(mouseY*1000) * .001);
 
 			 //create cue point object
-				cuePt.time = (getTimer()-caller.timeOffset)/1000;
+				cuePt.time = (getTimer()-caller.timeOffset) * .001;
 				cuePt.name = "CP_" + cuePt.time;
 				cuePt.type = "actionscript";
-				cuePt.xpos = Math.round(mouseX*1000)/1000;
-				cuePt.ypos = Math.round(mouseY*1000)/1000;
+				cuePt.xpos = Math.round(mouseX*1000) * .001;
+				cuePt.ypos = Math.round(mouseY*1000) * .001;
 				cuePt.fx = "null";
+				trace("xpos(after):",cuePt.xpos, " xpos(before):", mouseX);
 				
 			//caller.addCuePoint(cuePt);
 			caller.addCuePoint(cuePt);
 			
-			xmlObj.addPoint(cuePt.time, Math.round(mouseX*1000)/1000, Math.round(mouseY*1000)/1000);
+			xmlObj.addPoint(cuePt.time, Math.round(mouseX*1000) * .001, Math.round(mouseY*1000) * .001);
 			
 			//caller.getTime() + timeMod
 			event.updateAfterEvent();
@@ -176,11 +177,11 @@ package
 		
 				spriteName = getLastChildIndex()+1;
 				
-				cuePt.time = (getTimer()-caller.timeOffset)/1000;
+				cuePt.time = (getTimer()-caller.timeOffset) * .001;
 				cuePt.name = "CP_" + cuePt.time;
 				cuePt.type = "actionscript";
-				cuePt.xpos = Math.round(mouseX*1000)/1000;
-				cuePt.ypos = Math.round(mouseY*1000)/1000;
+				cuePt.xpos = Math.round(mouseX*1000) * .001;
+				cuePt.ypos = Math.round(mouseY*1000) * .001;
 				cuePt.fx = "delete";
 				
 				caller.addCuePoint(cuePt);

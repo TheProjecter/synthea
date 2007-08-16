@@ -11,6 +11,7 @@ $videoname= $_POST['name'];
 $xml = $_POST['xml'];
 
 if(!isset($username)) $username = "pixelmixer";
+if(!isset($password)) $password = "9842365";
 if(!isset($videoname)) $videoname = "video1";
 
 	$today = time();
