@@ -141,9 +141,8 @@
 		{
 			time = e.currentTarget.playheadTime * 1000;			
 			setRemoteTime(time);
-
-			//trace(fl.metadata.cuePoints);
-			//trace(time/1000 + "/" + e.currentTarget.totalTime);
+			
+			stage.getChildByName("timer").scaleX = getCurrentFLVPercentage()*.01;
 		}
 		
 		public function addCuePoint(cuePt:Object):void
@@ -165,6 +164,21 @@
 		{
 			trace("FLVObj: Grabbing XML Data");
 			var gbXML:GrabXML = new GrabXML(xmlUrl,this, fl);
+		}
+		
+		public function getFLVTime():Number
+		{
+			return fl.totalTime;
+		}
+		
+		public function getCurrentFLVTime():Number
+		{
+			return fl.playheadTime;
+		}
+		
+		public function getCurrentFLVPercentage():Number
+		{
+			return fl.playheadPercentage;
 		}
 	}
  }
