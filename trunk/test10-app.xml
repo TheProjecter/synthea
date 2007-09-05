@@ -1,0 +1,20 @@
+<?xml version ="1.0" encoding="utf-8" ?>
+<application appId="com.air.flash.test10" version="1.0" xmlns="http://ns.adobe.com/air/application/1.0.M4">
+	<name>test10</name>
+	<description>A simple AIR test for synthea</description>
+	<title>test10</title>
+	<copyright>DustinJSparks</copyright>
+	<rootContent systemChrome="none" transparent="true" visible="true">test10.swf</rootContent>
+	<!--<installFolder></installFolder>-->
+	<icon>
+	</icon>
+	<!--<handleUpdates/>-->
+	<!--<fileTypes>
+		<fileType>
+			<name>adobe.FlashFile</name>
+			<extension>swf</extension>
+			<description>Adobe Flash File</description>
+			<contentType>application/x-shockwave-flash</contentType>
+		</fileType>
+	</fileTypes>-->
+</application>

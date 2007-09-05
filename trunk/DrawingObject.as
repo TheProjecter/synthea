@@ -49,8 +49,8 @@ package
 				cuePt.time = (getTimer()-caller.timeOffset) * .001;
 				cuePt.name = "CP_" + cuePt.time;
 				cuePt.type = "actionscript";
-				cuePt.xpos = Math.round(mouseX*1000) * .001;
-				cuePt.ypos = Math.round(mouseY*1000) * .001;
+				cuePt.xpos = int(mouseX*1000) * .001; // changed from Math.round
+				cuePt.ypos = int(mouseY*1000) * .001; // changed from Math.round
 				cuePt.fx = "end";
 				
 			caller.addCuePoint(cuePt);
@@ -77,8 +77,8 @@ package
 				cuePt.time = (getTimer()-caller.timeOffset) * .001;
 				cuePt.name = "CP_" + cuePt.time;
 				cuePt.type = "actionscript";
-				cuePt.xpos = Math.round(mouseX*1000) * .001;
-				cuePt.ypos = Math.round(mouseY*1000) * .001;
+				cuePt.xpos = int(mouseX*1000) * .001; // changed from Math.round
+				cuePt.ypos = int(mouseY*1000) * .001; // changed from Math.round
 				cuePt.fx = "begin";
 				
 				caller.addCuePoint(cuePt);
@@ -129,21 +129,21 @@ package
 		{
 			var drawingSprite : Sprite = getChildren ()[getLastChildIndex ()];
 			drawingSprite.graphics.lineStyle (2, color);
-			drawingSprite.graphics.lineTo (Math.round(mouseX*1000) * .001, Math.round(mouseY*1000) * .001);
+			drawingSprite.graphics.lineTo (int(mouseX*1000) * .001, int(mouseY*1000) * .001); // changed from Math.round
 
 			 //create cue point object
 				cuePt.time = (getTimer()-caller.timeOffset) * .001;
 				cuePt.name = "CP_" + cuePt.time;
 				cuePt.type = "actionscript";
-				cuePt.xpos = Math.round(mouseX*1000) * .001;
-				cuePt.ypos = Math.round(mouseY*1000) * .001;
+				cuePt.xpos = int(mouseX*1000) * .001; // changed from Math.round
+				cuePt.ypos = int(mouseY*1000) * .001; // changed from Math.round
 				cuePt.fx = "null";
 				//trace("xpos(after):",cuePt.xpos, " xpos(before):", mouseX);
 				
 			//caller.addCuePoint(cuePt);
 			caller.addCuePoint(cuePt);
 			
-			xmlObj.addPoint(cuePt.time, Math.round(mouseX*1000) * .001, Math.round(mouseY*1000) * .001);
+			xmlObj.addPoint(cuePt.time, int(mouseX*1000) * .001, int(mouseY*1000) * .001);
 			
 			//caller.getTime() + timeMod
 			event.updateAfterEvent();
@@ -182,8 +182,8 @@ package
 				cuePt.time = (getTimer()-caller.timeOffset) * .001;
 				cuePt.name = "CP_" + cuePt.time;
 				cuePt.type = "actionscript";
-				cuePt.xpos = Math.round(mouseX*1000) * .001;
-				cuePt.ypos = Math.round(mouseY*1000) * .001;
+				cuePt.xpos = int(mouseX*1000) * .001;
+				cuePt.ypos = int(mouseY*1000) * .001;
 				cuePt.fx = "delete";
 				
 				caller.addCuePoint(cuePt);
