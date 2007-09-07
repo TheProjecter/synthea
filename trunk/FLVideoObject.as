@@ -20,7 +20,7 @@
 		public var drawingObj:DrawingObject;
 
 		public var timeOffset:int = 0;
-		public var mode:String = "playback"; //drawing, playback, (soon: text)
+		public var mode:String = "drawing"; //drawing, playback, (soon: text)
 		
         public function FLVideoObject(src:String,xmlUrl:String,xp:int,yp:int,w:int,h:int, s:Object) 
 		{
@@ -47,9 +47,13 @@
 			fl.addEventListener(VideoEvent.PLAYHEAD_UPDATE, setTime);
 			fl.addEventListener(MetadataEvent.CUE_POINT, doDrawing);
 			
-			grabXML();
-			addDrawingObject();
-			sendCallerID();
+			if(mode == "playback")
+			{
+				grabXML();
+				addDrawingObject();
+				sendCallerID();
+			}
+			
 			
 			/*
 			if(mode == "drawing")
