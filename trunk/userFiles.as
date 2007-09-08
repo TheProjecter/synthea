@@ -18,7 +18,7 @@ package
 		
         public function userFiles(username:String, password:String, video:String)
         {
-            var request:URLRequest = new URLRequest("http://localhost/php_test/synthea_tests/userFiles.php?username="+ username +"&password="+ password +"&video="+ video);
+            var request:URLRequest = new URLRequest("userFiles.php?username="+ username +"&password="+ password +"&video="+ video);
 			var variables:URLLoader = new URLLoader();
             variables.dataFormat = URLLoaderDataFormat.VARIABLES;
             variables.addEventListener(Event.COMPLETE, completeHandler);
