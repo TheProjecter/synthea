@@ -23,6 +23,7 @@ package
 		private var xmlObj:XMLObject;
 		public var time:Number = 0;
 		private var cuePt:Object = new Object();
+		private var childArray:Array;
 		
 		public var color:uint = 0xff0000;
 		
@@ -88,6 +89,9 @@ package
 		{
 			//trace("fx:" + fx + " x:" + x + " y:" + y + " t:" + time);
 			//trace(time);
+			//trace(fx , x , y , time);
+			if(fx && x && y && time)
+			{
 			if(fx == "begin")
 			{
 				var sprite : Sprite = new Sprite ();
@@ -123,13 +127,14 @@ package
 					i++
 				}
 			}
+			}
 		}
 		
 		private function drawInSprite (event : MouseEvent) : void
 		{
 			var drawingSprite : Sprite = getChildren ()[getLastChildIndex ()];
 			drawingSprite.graphics.lineStyle (2, color);
-			drawingSprite.graphics.lineTo (int(mouseX*1000) * .001, int(mouseY*1000) * .001); // changed from Math.round
+			drawingSprite.graphics.lineTo (uint(mouseX*1000) * .001, uint(mouseY*1000) * .001); // changed from Math.round
 
 			 //create cue point object
 				cuePt.time = (getTimer()-caller.timeOffset) * .001;
@@ -141,9 +146,11 @@ package
 				//trace("xpos(after):",cuePt.xpos, " xpos(before):", mouseX);
 				
 			//caller.addCuePoint(cuePt);
-			caller.addCuePoint(cuePt);
-			
-			xmlObj.addPoint(cuePt.time, int(mouseX*1000) * .001, int(mouseY*1000) * .001);
+			if(caller.mode == "playback")
+			{
+				caller.addCuePoint(cuePt);
+			}
+			xmlObj.addPoint(cuePt.time, uint(mouseX*1000) * .001, uint(mouseY*1000) * .001);
 			
 			//caller.getTime() + timeMod
 			event.updateAfterEvent();
@@ -161,13 +168,19 @@ package
 		
 		public function getChildren() : Array
 		{
-			var childArray : Array = new Array ();
+			childArray = new Array ();
 			var i : int;
 			for (i = 0; i <= getLastChildIndex(); i ++)
 			{
 				childArray.push (this.getChildAt(i));
 			}
 			return childArray;
+		}
+		
+		public function clearLines():void
+		{
+			this.removeChildAt(getLastChildIndex());
+			getChildAt(getLastChildIndex()).addEventListener(Event.REMOVED,tracer);
 		}
 		
 		public function clearDrawing(e:KeyboardEvent):void
@@ -191,9 +204,32 @@ package
 			
 			if(e.ctrlKey && e.keyCode == 83) //Ctrl-S
 			{
-				var sXML:SaveXMLtoServer = new SaveXMLtoServer(xmlObj, "pixelmixer", "345xvc445", caller.name);
-				caller.rewind();
+				doSave(null);
 			}
+		}
+		
+		public function clearAll():void
+		{
+			var i:int = 0;
+			while(childArray.length > 0)
+			{
+				
+				if(childArray[i] is Sprite)
+				{
+					removeChild(childArray[i]);
+				}
+				else
+				{
+					break;
+				}
+				i++
+			}
+		}
+		
+		public function doSave(e:*):void
+		{
+			var sXML:SaveXMLtoServer = new SaveXMLtoServer(xmlObj, "pixelmixer", "345xvc445", caller.name);
+				caller.rewind();
 		}
 		
 		private function tracer(e:Event):void
