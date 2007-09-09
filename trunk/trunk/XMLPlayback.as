@@ -55,6 +55,7 @@ package {
 			}
 
 			trace("Segments: "+ segments + " Points: " + points);
+			//trace(getCuePoints());
 		}
 		private function setFunctionType(i:int, j:int, fx:String):void
 		{
@@ -80,6 +81,13 @@ package {
 		{
 			return data.segment.length();
 		}
+		
+		/*
+		public function getCuePoints():Array
+		{
+			return flvObj.metaData.cuePoints;
+		}
+		*/
 	}
 	
 }

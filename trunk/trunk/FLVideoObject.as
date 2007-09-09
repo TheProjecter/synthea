@@ -20,7 +20,7 @@
 		public var drawingObj:DrawingObject;
 
 		public var timeOffset:int = 0;
-		public var mode:String = "drawing"; //drawing, playback, (soon: text)
+		public var mode:String = "playback"; //drawing, playback, (soon: text)
 		
         public function FLVideoObject(src:String,xmlUrl:String,xp:int,yp:int,w:int,h:int, s:Object) 
 		{
@@ -45,14 +45,21 @@
 
 			fl.addEventListener(VideoEvent.READY, setInitialTime);
 			fl.addEventListener(VideoEvent.PLAYHEAD_UPDATE, setTime);
-			fl.addEventListener(MetadataEvent.CUE_POINT, doDrawing);
+			fl.addEventListener(MetadataEvent.METADATA_RECEIVED, checkCuePoints);
+			
+			addDrawingObject();
+			sendCallerID();
 			
 			if(mode == "playback")
 			{
 				grabXML();
-				addDrawingObject();
-				sendCallerID();
+				
 			}
+			else if(mode == "drawing")
+			{
+				//sendCallerID();
+			}
+			
 			
 			
 			/*
@@ -70,6 +77,11 @@
 			}
 			*/
 		}
+		private function checkCuePoints(e:MetadataEvent):void
+		{
+			fl.addEventListener(MetadataEvent.CUE_POINT, doDrawing);
+			//trace(xml + " :::");
+		}
 		
 		public function setInitialTime(e:VideoEvent):void
 		{
@@ -81,7 +93,7 @@
 		{
 			//trace(e.info.duration);
 
-			if(e.info.xpos != undefined)
+			if(e.info.xpos && e.info.fx && e.info.ypos && e.info.time)
 			{
 				drawingObj.autoDraw(e.info.fx,e.info.xpos,e.info.ypos, e.info.time);
 			}
@@ -121,12 +133,12 @@
 			fl.playWhenEnoughDownloaded();
 		}
 		
-		public function pause():void
+		public function pause(e:*):void
 		{
 			fl.pause();
 		}
 		
-		public function play():void
+		public function play(e:*):void
 		{
 			fl.play();
 		}
@@ -146,7 +158,58 @@
 			time = e.currentTarget.playheadTime * 1000;			
 			setRemoteTime(time);
 			
-			stage.getChildByName("timer").scaleX = getCurrentFLVPercentage()*.01;
+			var tmer:Object = stage.getChildByName("timer");
+			var tmcd:Object = stage.getChildByName("timeCode");
+			
+			var modeToggler:Object = stage.getChildByName("draw");
+			
+			var tmcdoffset:Number = tmer.x + tmer.width - tmcd.width - 1;
+			
+			//trace(e.currentTarget.playheadTime);
+			if(tmcdoffset > tmer.x)
+			{
+				tmcd.x = tmcdoffset;
+				tmcd.textColor = 0xFFFFFF;
+			}
+			else
+			{
+				tmcd.x = tmcdoffset + tmcd.width + 5;
+				tmcd.textColor = 0x000000;
+			}
+			
+			tmcd.text = uint(time*.001) +"/"+uint(e.currentTarget.totalTime);
+			tmer.scaleX = getCurrentFLVPercentage()*.01;
+			
+			modeToggler.addEventListener(MouseEvent.MOUSE_DOWN, toggleModes);
+			
+			s.getChildByName("playBtn").addEventListener(MouseEvent.MOUSE_DOWN, play);
+			s.getChildByName("pauseBtn").addEventListener(MouseEvent.MOUSE_DOWN, pause);
+			
+			s.getChildByName("save").addEventListener(MouseEvent.MOUSE_DOWN,drawingObj.doSave);
+			
+			s.getChildByName("erase").addEventListener(MouseEvent.MOUSE_DOWN,clear);
+		}
+		
+		private function toggleModes(me:MouseEvent):void
+		{
+			if(mode == "playback")
+			{
+				mode = "drawing";
+				
+			}
+			else if(mode == "drawing")
+			{
+				mode = "playback";
+				
+			}
+			clear(null);
+			rewind();
+		}
+		
+		private function clear(e:*):void
+		{
+			//drawingObj.clearLines();
+			drawingObj.clearAll();
 		}
 		
 		public function addCuePoint(cuePt:Object):void
