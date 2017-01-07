@@ -1,2 +1,1 @@
-# synthea
-Automatically exported from code.google.com/p/synthea
+Synthea allows a user to upload a video to a server, then draw on the video, creating an XML file of cuepoints that syncs the drawing with the video.Each video that a user uploads is stored in the users folder. The video has a list of XML files associated with it and a single video file.The videos can be shared between people freely.
